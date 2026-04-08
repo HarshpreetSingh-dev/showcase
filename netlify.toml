@@ -1,0 +1,9 @@
+[build]
+  command = "npm install"
+  functions = "netlify/functions"
+  publish = "."
+
+[dev]
+  command = "echo 'Local Dev Server' && npx serve"
+  port = 8888
+  publish = "."

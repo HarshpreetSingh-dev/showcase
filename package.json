@@ -1,0 +1,8 @@
+{
+  "name": "universal-showcase",
+  "version": "1.0.0",
+  "description": "Serverless API for Universal Showcase",
+  "dependencies": {
+    "@netlify/blobs": "^7.0.0"
+  }
+}

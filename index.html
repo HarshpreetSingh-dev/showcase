@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Showcase</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- https://cdnjs.com/libraries/jspdf for the PDF maker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <h2>Showcase <span style="color:var(--accent-cyan)">Hub</span></h2>
+            <p style="color:var(--text-muted); margin-bottom: 20px;">Secured Access Only</p>
+            <input type="password" id="login-password" placeholder="Enter PIN">
+            <button id="login-btn">Unlock</button>
+            <p id="login-error" style="display:none; color:var(--accent-red); font-size: 14px; margin-top: 10px;">Incorrect Password</p>
+            <p style="margin-top: 15px; font-size: 14px;"><a href="#" id="forgot-pass-link" style="color:var(--accent-cyan); text-decoration: none;">Forgot Password?</a></p>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <h2>Showcase <span>Hub</span></h2>
+            </div>
+            <ul id="nav-links">
+                <li class="active" data-showcase="all">All Files</li>
+                <li data-showcase="audio">Audio</li>
+                <li data-showcase="video">Video</li>
+                <li data-showcase="images">Images</li>
+                <li data-showcase="documents">Documents</li>
+                <li data-showcase="folders">Folders 📁</li>
+                <li data-showcase="recycle-bin" class="special-link" style="color:var(--accent-red)">Recycle Bin</li>
+            </ul>
+
+            <div class="custom-showcases">
+                <h3>Custom Showcases</h3>
+                <ul id="custom-nav-links"></ul>
+                <button id="add-showcase-btn">+ New Showcase</button>
+            </div>
+            <div style="margin-top: 15px;">
+                <button id="btn-change-password" style="width: 100%; font-size: 12px; background: transparent; border: 1px solid #444; color: var(--text-muted);">Auth Settings</button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <div class="mobile-header">
+                <button id="menu-toggle" class="menu-toggle">☰ Menu</button>
+                <h2>Showcase <span>Hub</span></h2>
+            </div>
+            
+            <!-- Header with Dropzone -->
+            <header class="top-bar">
+                <div class="upload-zone" id="upload-zone">
+                    <input type="file" id="file-input" multiple hidden>
+                    <input type="file" id="folder-input" webkitdirectory multiple hidden>
+                    <p>Drag & Drop files here, or <button id="browse-btn">Browse Files</button> <button
+                            id="browse-folder-btn" style="margin-left: 10px;">Upload Folder</button></p>
+                </div>
+            </header>
+
+            <!-- Showcases Container -->
+            <div class="showcase-area" id="showcase-area">
+                <div class="showcase-header">
+                    <div style="display:flex; align-items:center;">
+                        <button id="breadcrumb-back-btn" class="hidden" style="margin-right: 15px;">&larr; Back</button>
+                        <h2 id="current-showcase-title">All Files</h2>
+                    </div>
+                </div>
+                <div class="file-grid" id="file-grid">
+                    <!-- File items injected here via JS -->
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+
+    <!-- Auth Config Modal -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <h2 id="auth-modal-title">Change Password</h2>
+            <p id="auth-modal-desc" style="color:var(--text-muted); margin-bottom: 15px;"></p>
+            <input type="password" id="auth-input-1" placeholder="Old Password" style="width:100%; margin-bottom:10px; padding:12px; background:var(--bg-main); border:1px solid #444; color:white; border-radius: 6px; font-size:16px;">
+            <input type="password" id="auth-input-2" placeholder="New Password" style="width:100%; margin-bottom:15px; padding:12px; background:var(--bg-main); border:1px solid #444; color:white; border-radius: 6px; font-size:16px;">
+            <p id="auth-modal-error" style="color:var(--accent-red); margin-bottom:15px; display:none;">Error</p>
+            <button id="auth-submit-btn" style="width:100%; margin-bottom: 10px;">Submit</button>
+            <button id="auth-close-btn" style="width:100%; background:transparent; border:1px solid #444;">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Global Audio Player (Fixed at bottom) -->
+    <div class="audio-player hidden" id="global-audio-player">
+        <div class="track-info">
+            <span id="audio-title">No track selected</span>
+        </div>
+        <div class="controls">
+            <audio id="audio-element" controls></audio>
+        </div>
+    </div>
+
+    <!-- Modals for Image, Video, Doc Viewing -->
+    <div class="modal hidden" id="viewer-modal">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal">&times;</button>
+            <div id="viewer-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
